@@ -1,0 +1,71 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "Executed",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "_baseToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address[][]",
+        "name": "_sellPaths",
+        "type": "address[][]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_sellMinAmounts",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address[][]",
+        "name": "_buyPaths",
+        "type": "address[][]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_buyMinAmounts",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_buyShares",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "call",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pancakeRouter",
+    "outputs": [
+      {
+        "internalType": "contract PancakeRouter",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

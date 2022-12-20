@@ -37,6 +37,9 @@ contract Rebalancer {
         for (uint8 i = 0; i < _sellPaths.length; i++) {
             IERC20 token = IERC20(_sellPaths[i][0]);
             token.transferFrom(msg.sender, address(this), token.balanceOf(msg.sender));
+            if (address(token) == address(_baseToken)) {
+               continue;
+            }
             token.approve(address(pancakeRouter), token.balanceOf(address(this)));
             pancakeRouter.swapExactTokensForTokens(
                 token.balanceOf(address(this)),
@@ -51,7 +54,14 @@ contract Rebalancer {
         _baseToken.approve(address(pancakeRouter), baseTokenBalance);
 
         for (uint8 i = 0; i < _buyPaths.length; i++) {
+            IERC20 token = IERC20(_sellPaths[i][0]);
             uint256 toSell = baseTokenBalance * _buyShares[i] / 10000;
+
+            if (address(token) == address(_baseToken)) {
+                token.transfer(msg.sender, toSell);
+                continue;
+            }
+
             uint256[] memory amounts = pancakeRouter.swapExactTokensForTokens(
                 toSell,
                 0,

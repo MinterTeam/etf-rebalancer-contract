@@ -57,7 +57,7 @@ contract Rebalancer {
             IERC20 token = IERC20(_sellPaths[i][0]);
             uint256 toSell = baseTokenBalance * _buyShares[i] / 10000;
 
-            if (address(token) == address(_baseToken)) {
+            if (_buyPaths.length == 1 && address(token) == address(_baseToken)) {
                 token.transfer(msg.sender, toSell);
                 continue;
             }

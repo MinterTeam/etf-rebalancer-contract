@@ -18,8 +18,11 @@ contract Rebalancer {
     PancakeRouter public pancakeRouter = PancakeRouter(0x10ED43C718714eb63d5aA57B78B54704E256024E);
 
     event Executed (
-        uint256 _nonce
+        address indexed sender,
+        uint256 indexed _nonce
     );
+
+    mapping(address => uint256) public nonces;
 
     function call(
         IERC20 _baseToken,
@@ -56,6 +59,7 @@ contract Rebalancer {
             );
         }
 
-        emit Executed(_nonce);
+        nonces[msg.sender] = _nonce;
+        emit Executed(msg.sender, _nonce);
     }
 }

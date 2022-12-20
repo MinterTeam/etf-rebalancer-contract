@@ -29,7 +29,8 @@ contract Rebalancer {
         address[][] memory _sellPaths,
         uint256[] memory _sellMinAmounts,
         address[][] memory _buyPaths,
-        uint256[] memory _buyMinAmounts,
+        uint256[] memory _buyMaxPrices,
+        uint256 _buyMaxPriceDenom,
         uint256[] memory _buyShares,
         uint256 _nonce
     ) public {
@@ -50,13 +51,16 @@ contract Rebalancer {
         _baseToken.approve(address(pancakeRouter), baseTokenBalance);
 
         for (uint8 i = 0; i < _buyPaths.length; i++) {
-            pancakeRouter.swapExactTokensForTokens(
-                baseTokenBalance * _buyShares[i] / 10000,
-                _buyMinAmounts[i],
+            uint256 toSell = baseTokenBalance * _buyShares[i] / 10000;
+            uint256[] memory amounts = pancakeRouter.swapExactTokensForTokens(
+                toSell,
+                0,
                 _buyPaths[i],
                 msg.sender,
                 block.timestamp
             );
+
+            require(toSell * _buyMaxPriceDenom / amounts[amounts.length - 1] >= _buyMaxPrices[i], "Price too high");
         }
 
         nonces[msg.sender] = _nonce;

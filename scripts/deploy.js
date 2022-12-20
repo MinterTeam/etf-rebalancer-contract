@@ -15,7 +15,7 @@ async function main() {
     await rebalancer.deployTransaction.wait(10);
 
     await hre.run("verify:verify", {
-        address: factory.address,
+        address: rebalancer.address,
         constructorArguments: [],
         contract: "contracts/Rebalancer.sol:Rebalancer"
     });

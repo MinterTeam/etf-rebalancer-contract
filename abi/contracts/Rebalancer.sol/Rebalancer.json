@@ -42,8 +42,13 @@
       },
       {
         "internalType": "uint256[]",
-        "name": "_buyMinAmounts",
+        "name": "_buyMaxPrices",
         "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_buyMaxPriceDenom",
+        "type": "uint256"
       },
       {
         "internalType": "uint256[]",
